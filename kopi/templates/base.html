@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>{{ Title }}</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="crossorigin=""/>
+    <style type="text/css">
+        #map {
+            height: 450px;
+            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar ">
+      <a class="navbar-brand" href="#">
+        <img src="https://icookasia.com/wp-content/uploads/2022/11/Kenangan-Coffee-Logo-scaled.jpg" alt="" width="130" height="60">
+      </a>
+    <nav class="navbar navbar-expand-lg" style="background-color: #FFFFFF;>
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="/beranda/">Home <span class="sr-only"></span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link tm-nav-link" href="#map">Maps</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link tm-nav-link" href="#menu">Menu</a>
+              </li>
+              <li class="nav-item">
+               <a class="nav-link tm-nav-link" href="/logout/">
+               <button class="btn btn-outline-success" type="submit">Logout</button></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </nav>
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="crossorigin=""></script>
+    <script>
+        const map = L.map('map').setView([-6.125648325854257, 106.14666856350469], 13);
+
+        const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        {% for koordinat in koordinats %}
+        L.marker([{{ koordinat.koordinat }}]).addTo(map).bindPopup('{{ koordinat.alamat}}');
+        {% endfor %}
+  </script>
+  </div>
+
+  <footer class="text-center text-white" style="background-color: #45637d;">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!-- Section: Iframe -->
+      <section class="">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6">
+            <div class="ratio ratio-16x9">
+              <iframe
+                class="shadow-1-strong rounded"
+                src="https://www.youtube.com/embed/vlDzYIIOYmM"
+                title="YouTube video"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section: Iframe -->
+    </div>
+    <!-- Grid container -->
+    
+    <footer class="text-center text-white" style="background-color: #caced1;">
+      <!-- Grid container -->
+      <div class="container p-4">
+        <!-- Section: Images -->
+        <section class="">
+          <div class="row">
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+              <div
+                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                data-ripple-color="light"
+              >
+                <img
+                  src="data:image/jpeg;base64,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"
+                  class="w-100"
+                />
+                <a href="#!">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.2);"
+                  ></div>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+              <div
+                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                data-ripple-color="light"
+              >
+                <img
+                  src="https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/8cb74461-54ab-457a-a12c-89ade17ad2bc_Go-Biz_20220323_014920.jpeg"
+                  class="w-100"
+                />
+                <a href="#!">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.2);"
+                  ></div>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+              <div
+                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                data-ripple-color="light"
+              >
+                <img
+                  src="https://assets-pergikuliner.com/yvx3jF2KIB-rfgQ1qpRy4AqbTF4=/385x290/smart/https://assets-pergikuliner.com/uploads/image/picture/1578187/picture-1568011438.jpg"
+                  class="w-100"
+                />
+                <a href="#!">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.2);"
+                  ></div>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+              <div
+                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                data-ripple-color="light"
+              >
+                <img
+                  src="https://i0.wp.com/i.gojekapi.com/darkroom/gofood-indonesia/v2/images/uploads/1189a267-dc67-4434-aeb0-ae94861869a7_restaurant-image_1642130425355.jpg"
+                  class="w-100"
+                />
+                <a href="#!">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.2);"
+                  ></div>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+              <div
+                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                data-ripple-color="light"
+              >
+                <img
+                  src="https://marketing.co.id/wp-content/uploads/2021/07/1626673229332_1626673109384_KV_Kopi-Kenangan.jpg"
+                  class="w-100"
+                />
+                <a href="#!">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.2);"
+                  ></div>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-12 mb-4 mb-md-0">
+              <div
+                class="bg-image hover-overlay ripple shadow-1-strong rounded"
+                data-ripple-color="light"
+              >
+                <img
+                  src="https://awards.brandingforum.org/wp-content/uploads/2020/12/WhatsApp-Image-2020-11-30-at-2.28.56-PM.jpeg"
+                  class="w-100"
+                />
+                <a href="#!">
+                  <div
+                    class="mask"
+                    style="background-color: rgba(251, 251, 251, 0.2);"
+                  ></div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Section: Images -->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+        <a class="text-white" >ANTING BULAN NADA SARI</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+</body>
+</html>
